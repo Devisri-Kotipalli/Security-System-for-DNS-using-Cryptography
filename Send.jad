@@ -1,0 +1,62 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 9/22/2005 12:20:09 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Send.java
+
+import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.Vector;
+
+class Send
+{
+
+    Send()
+    {
+    }
+
+    public static void send(String s1)
+        throws Exception
+    {
+        localvect = new Vector();
+        System.out.println("Send for sending client req");
+        localaddr = InetAddress.getLocalHost().getHostName();
+        localvect.addElement(localaddr);
+        System.out.println((new StringBuilder()).append("The Source is :").append((String)(String)localvect.firstElement()).toString());
+        localvect.addElement(s1);
+        System.out.println((new StringBuilder()).append("The Source is :").append((String)(String)localvect.get(1)).toString());
+        fr = new FileReader("nextnodes.txt");
+        BufferedReader bufferedreader = new BufferedReader(fr);
+        while((addr = bufferedreader.readLine()) != null) 
+            try
+            {
+                System.out.println((new StringBuilder()).append("Sender is going to create a socket with the system named ").append(addr).toString());
+                s = new Socket(addr, 8888);
+                System.out.println((new StringBuilder()).append("Sender has created a socket connection to ").append(addr).toString());
+                java.io.OutputStream outputstream = s.getOutputStream();
+                ObjectOutputStream objectoutputstream = new ObjectOutputStream(outputstream);
+                objectoutputstream.writeObject("reqroute");
+                objectoutputstream.writeObject(localvect);
+                System.out.println((new StringBuilder()).append("Sender has sent the request the requet to ").append(addr).toString());
+            }
+            catch(Exception exception)
+            {
+                System.out.println((new StringBuilder()).append("Error in sending the request to :").append(addr).toString());
+            }
+        try
+        {
+            fr.close();
+        }
+        catch(Exception exception1)
+        {
+            System.out.println("File cannot be closed ....");
+        }
+    }
+
+    static Vector localvect;
+    static Socket s;
+    static String localaddr = "";
+    static String addr = "";
+    static FileReader fr;
+
+}

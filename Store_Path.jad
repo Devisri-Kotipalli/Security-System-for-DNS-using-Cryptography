@@ -1,0 +1,44 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 9/26/2005 10:22:36 AM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Store_Path.java
+
+import java.io.*;
+import java.util.Vector;
+
+class Store_Path
+{
+
+    Store_Path(int j, Vector vector)
+    {
+        Store_Path _tmp = this;
+        i = j;
+        Store_Path _tmp1 = this;
+        v = vector;
+    }
+
+    Store_Path(String s)
+    {
+        Store_Path _tmp = this;
+        a = s;
+    }
+
+    static String get()
+    {
+        System.out.println((new StringBuilder()).append("The string in storepath is :").append(a).toString());
+        return a;
+    }
+
+    static void file()
+        throws Exception
+    {
+        FileOutputStream fileoutputstream = new FileOutputStream((new StringBuilder()).append("path").append(i).append(".txt").toString());
+        ObjectOutputStream objectoutputstream = new ObjectOutputStream(fileoutputstream);
+        objectoutputstream.writeObject(v);
+    }
+
+    static int i = 0;
+    static Vector v;
+    static String a;
+
+}
